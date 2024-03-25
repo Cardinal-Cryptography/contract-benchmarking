@@ -1,0 +1,6 @@
+[submodule "ink"]
+	path = ink
+	url = https://github.com/paritytech/ink
+[submodule "polkadot-sdk"]
+	path = polkadot-sdk
+	url = https://github.com/paritytech/polkadot-sdk
