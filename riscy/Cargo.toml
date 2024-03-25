@@ -1,0 +1,17 @@
+[package]
+name = "riscy"
+version = "0.1.0"
+authors = ["[your_name] <[your_email]>"]
+edition = "2021"
+
+[dependencies]
+ink = { path = "../ink/crates/ink", default-features = false }
+
+[lib]
+path = "lib.rs"
+
+[features]
+default = ["std"]
+std = ["ink/std"]
+ink-as-dependency = []
+e2e-tests = []
