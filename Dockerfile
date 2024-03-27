@@ -13,13 +13,13 @@ RUN wget https://github.com/paritytech/rustc-rv32e-toolchain/releases/download/v
     mv rve-nightly ~/.rustup/toolchains/ && \
     cp -r ~/.rustup/toolchains/rve-nightly ~/.rustup/toolchains/rv32e-nightly-2023-04-05
 
-# Build cargo-contract
-RUN . $HOME/.cargo/env && \
-    cargo install --git https://github.com/paritytech/cargo-contract --branch at/riscv
-
 # Install rust component
 RUN . $HOME/.cargo/env && \
     rustup component add rust-src --toolchain stable-x86_64-unknown-linux-gnu
+
+# Build cargo-contract
+RUN . $HOME/.cargo/env && \
+    cargo install --git https://github.com/paritytech/cargo-contract --branch at/riscv
 
 # Prepare the workspace
 WORKDIR /workspace
