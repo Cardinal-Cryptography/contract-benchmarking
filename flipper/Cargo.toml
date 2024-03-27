@@ -1,5 +1,5 @@
 [package]
-name = "riscy"
+name = "flipper"
 version = "0.1.0"
 authors = ["[your_name] <[your_email]>"]
 edition = "2021"
@@ -12,6 +12,7 @@ path = "lib.rs"
 
 [features]
 default = ["std"]
-std = ["ink/std"]
+std = [
+    "ink/std",
+]
 ink-as-dependency = []
-e2e-tests = []

@@ -1,13 +1,13 @@
 #![cfg_attr(not(feature = "std"), no_std, no_main)]
 
 #[ink::contract]
-mod riscy {
+mod flipper {
     #[ink(storage)]
-    pub struct Riscy {
+    pub struct Flipper {
         value: bool,
     }
 
-    impl Riscy {
+    impl Flipper {
         #[ink(constructor)]
         pub fn new(init_value: bool) -> Self {
             Self { value: init_value }
