@@ -1,6 +1,8 @@
 [submodule "ink"]
 	path = ink
 	url = https://github.com/paritytech/ink
+	branch = at/riscv
 [submodule "polkadot-sdk"]
 	path = polkadot-sdk
 	url = https://github.com/paritytech/polkadot-sdk
+	branch = at/riscv
