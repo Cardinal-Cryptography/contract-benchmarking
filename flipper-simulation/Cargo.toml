@@ -8,5 +8,5 @@ name = "simulation"
 path = "main.rs"
 
 [dependencies]
-drink = { path = "../../drink/drink" }
+drink = { path = "../drink/drink" }
 num-format = { version = "0.4.4", default-features = false }

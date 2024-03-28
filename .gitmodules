@@ -6,3 +6,7 @@
 	path = polkadot-sdk
 	url = https://github.com/paritytech/polkadot-sdk
 	branch = at/riscv
+[submodule "drink"]
+	path = drink
+	url = https://github.com/inkdevhub/drink
+	branch = riscv
