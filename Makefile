@@ -60,14 +60,26 @@ run-flipper-simulation: flipper/artifacts/flipper.wasm flipper/artifacts/flipper
 build-dex-wasm: ## Build dex contracts (wasm target)
 	@$(RUN_WITH_CONTEXT) build --release --target wasm --manifest-path dex/PSP22/Cargo.toml --features contract
 	@$(RUN_WITH_CONTEXT) build --release --target wasm --manifest-path dex/wrapped-azero/Cargo.toml
+	@$(RUN_WITH_CONTEXT) build --release --target wasm --manifest-path dex/pair/Cargo.toml
+	@$(RUN_WITH_CONTEXT) build --release --target wasm --manifest-path dex/router/Cargo.toml
+	@$(RUN_WITH_CONTEXT) build --release --target wasm --manifest-path dex/factory/Cargo.toml
 	@mkdir -p dex/artifacts && \
 		cp dex/PSP22/target/ink/psp22.wasm dex/artifacts && \
-		cp dex/wrapped-azero/target/ink/wrapped_azero.wasm dex/artifacts
+		cp dex/wrapped-azero/target/ink/wrapped_azero.wasm dex/artifacts && \
+		cp dex/pair/target/ink/pair_contract.wasm dex/artifacts && \
+		cp dex/router/target/ink/router_contract.wasm dex/artifacts && \
+		cp dex/factory/target/ink/factory_contract.wasm dex/artifacts
 
 .PHONY: build-dex-riscv
 build-dex-riscv: ## Build dex contracts (riscv target)
 	@$(RUN_WITH_CONTEXT) build --release --target riscv --manifest-path dex/PSP22/Cargo.toml --features contract
 	@$(RUN_WITH_CONTEXT) build --release --target riscv --manifest-path dex/wrapped-azero/Cargo.toml
+	@$(RUN_WITH_CONTEXT) build --release --target riscv --manifest-path dex/pair/Cargo.toml
+	@$(RUN_WITH_CONTEXT) build --release --target riscv --manifest-path dex/router/Cargo.toml
+	@$(RUN_WITH_CONTEXT) build --release --target riscv --manifest-path dex/factory/Cargo.toml
 	@mkdir -p dex/artifacts && \
 		cp dex/PSP22/target/ink/psp22.riscv dex/artifacts && \
-		cp dex/wrapped-azero/target/ink/wrapped_azero.riscv dex/artifacts
+		cp dex/wrapped-azero/target/ink/wrapped_azero.riscv dex/artifacts && \
+		cp dex/pair/target/ink/pair_contract.riscv dex/artifacts && \
+		cp dex/router/target/ink/router_contract.riscv dex/artifacts && \
+		cp dex/factory/target/ink/factory_contract.riscv dex/artifacts
