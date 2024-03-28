@@ -1,0 +1,12 @@
+[package]
+name = "simulation"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "simulation"
+path = "main.rs"
+
+[dependencies]
+drink = { path = "../../drink/drink" }
+num-format = { version = "0.4.4", default-features = false }

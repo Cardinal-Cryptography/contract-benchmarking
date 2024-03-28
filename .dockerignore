@@ -1,4 +1,6 @@
 ink/
 polkadot-sdk/
 flipper/
+simulation/
+
 Makefile
