@@ -1,14 +1,12 @@
-use drink::{
-    AccountId32, contracts_api::ContractAPI,
-    MinimalSandbox, pallet_contracts::Determinism, Sandbox, Weight,
-};
-use num_format::*;
+use drink::{AccountId32, MinimalSandbox, Sandbox, Weight};
+use drink::contracts_api::ContractAPI;
+use drink::pallet_contracts::Determinism;
+use num_format::{Buffer, Locale, ToFormattedStr};
 
-const NEW_SELECTOR: [u8; 4] = [155u8, 174u8, 157u8, 94u8];
-const FLIP_SELECTOR: [u8; 4] = [99, 58, 165, 81];
-const GAS_LIMIT: Weight = Weight::from_parts(500_000_000_000, 500_000_000_000);
+pub const NEW_SELECTOR: [u8; 4] = [155u8, 174u8, 157u8, 94u8];
+pub const GAS_LIMIT: Weight = Weight::from_parts(500_000_000_000, 500_000_000_000);
 
-fn deploy_contract(
+pub fn deploy_contract(
     sandbox: &mut MinimalSandbox,
     data: Vec<u8>,
     code: Vec<u8>,
@@ -31,7 +29,7 @@ fn deploy_contract(
     )
 }
 
-fn call_contract(
+pub fn call_contract(
     sandbox: &mut MinimalSandbox,
     contract: AccountId32,
     data: Vec<u8>,
@@ -57,36 +55,9 @@ fn format_gas<G: ToFormattedStr>(gas: &G) -> String {
     format!("{}", buf.as_str())
 }
 
-fn report_gas(riscv_gas: u64, wasm_gas: u64, contract: &'static str, action: &'static str) {
+pub fn report_gas(riscv_gas: u64, wasm_gas: u64, contract: &'static str, action: &'static str) {
     println!("----------------------------------------");
     println!("[{contract}][riscv][{action}]: {}", format_gas(&riscv_gas));
     println!("[{contract}][wasm] [{action}]: {}", format_gas(&wasm_gas));
     println!("Speedup: {:.0}%", (riscv_gas as f64 / wasm_gas as f64) * 100f64);
-}
-
-fn main() {
-    let mut sandbox = MinimalSandbox::default();
-
-    let riscv_bytes = include_bytes!("../flipper/artifacts/flipper.riscv");
-    let wasm_bytes = include_bytes!("../flipper/artifacts/flipper.wasm");
-
-    let instantiation_data = [NEW_SELECTOR.to_vec(), vec![1]].concat();
-
-    let (riscv_gas, riscv_instance) = deploy_contract(
-        &mut sandbox,
-        instantiation_data.clone(),
-        riscv_bytes.to_vec(),
-    );
-    let (wasm_gas, wasm_instance) = deploy_contract(
-        &mut sandbox,
-        instantiation_data.clone(),
-        wasm_bytes.to_vec(),
-    );
-
-    report_gas(riscv_gas, wasm_gas, "flipper", "deploy");
-
-    let (riscv_gas, _) = call_contract(&mut sandbox, riscv_instance, FLIP_SELECTOR.to_vec());
-    let (wasm_gas, _) = call_contract(&mut sandbox, wasm_instance, FLIP_SELECTOR.to_vec());
-
-    report_gas(riscv_gas, wasm_gas, "flipper", "flip");
 }

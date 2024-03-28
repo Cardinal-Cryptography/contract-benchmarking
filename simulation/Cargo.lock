@@ -1753,14 +1753,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "flipper-simulation"
-version = "0.1.0"
-dependencies = [
- "drink",
- "num-format",
-]
-
-[[package]]
 name = "fnv"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4260,6 +4252,14 @@ dependencies = [
 name = "simple-mermaid"
 version = "0.1.0"
 source = "git+https://github.com/kianenigma/simple-mermaid.git?rev=e48b187bcfd5cc75111acd9d241f1bd36604344b#e48b187bcfd5cc75111acd9d241f1bd36604344b"
+
+[[package]]
+name = "simulation"
+version = "0.1.0"
+dependencies = [
+ "drink",
+ "num-format",
+]
 
 [[package]]
 name = "slab"

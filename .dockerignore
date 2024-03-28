@@ -2,6 +2,6 @@ drink/
 ink/
 polkadot-sdk/
 flipper/
-flipper-simulation/
+simulation/
 
 Makefile

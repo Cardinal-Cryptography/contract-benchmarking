@@ -1,11 +1,18 @@
 [package]
-name = "flipper-simulation"
+name = "simulation"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+path = "lib.rs"
+
 [[bin]]
-name = "simulation"
-path = "main.rs"
+name = "flipper-simulation"
+path = "flipper.rs"
+
+[[bin]]
+name = "dex-simulation"
+path = "dex.rs"
 
 [dependencies]
 drink = { path = "../drink/drink" }
