@@ -24,8 +24,8 @@ fn main() {
 
     report_gas(riscv_gas, wasm_gas, "flipper", "deploy");
 
-    let (riscv_gas, _) = call_contract(&mut sandbox, riscv_instance, FLIP_SELECTOR.to_vec());
-    let (wasm_gas, _) = call_contract(&mut sandbox, wasm_instance, FLIP_SELECTOR.to_vec());
+    let (riscv_gas, _) = call_contract(&mut sandbox, riscv_instance, FLIP_SELECTOR.to_vec(), None);
+    let (wasm_gas, _) = call_contract(&mut sandbox, wasm_instance, FLIP_SELECTOR.to_vec(), None);
 
     report_gas(riscv_gas, wasm_gas, "flipper", "flip");
 }

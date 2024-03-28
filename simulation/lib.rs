@@ -1,5 +1,6 @@
 use drink::{AccountId32, MinimalSandbox, Sandbox, Weight};
 use drink::contracts_api::ContractAPI;
+use drink::frame_support::sp_runtime::testing::H256;
 use drink::pallet_contracts::Determinism;
 use num_format::{Buffer, Locale, ToFormattedStr};
 
@@ -29,16 +30,38 @@ pub fn deploy_contract(
     )
 }
 
+pub fn instantiate_contract(
+    sandbox: &mut MinimalSandbox,
+    data: Vec<u8>,
+    hash: H256,
+    caller: Option<AccountId32>,
+) -> AccountId32 {
+    let main_result = sandbox.instantiate_contract(
+        hash.0.to_vec(),
+        0,
+        data,
+        vec![],
+        caller.unwrap_or_else(MinimalSandbox::default_actor),
+        GAS_LIMIT,
+        None,
+    );
+
+    let instantiation_result = main_result.result.unwrap();
+    assert!(!instantiation_result.result.did_revert());
+    instantiation_result.account_id
+}
+
 pub fn call_contract(
     sandbox: &mut MinimalSandbox,
     contract: AccountId32,
     data: Vec<u8>,
+    caller: Option<AccountId32>,
 ) -> (u64, Vec<u8>) {
     let main_result = sandbox.call_contract(
         contract,
         0,
         data,
-        MinimalSandbox::default_actor(),
+        caller.unwrap_or_else(MinimalSandbox::default_actor),
         GAS_LIMIT,
         None,
         Determinism::Enforced,

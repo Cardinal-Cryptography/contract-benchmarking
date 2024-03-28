@@ -83,3 +83,28 @@ build-dex-riscv: ## Build dex contracts (riscv target)
 		cp dex/pair/target/ink/pair_contract.riscv dex/artifacts && \
 		cp dex/router/target/ink/router_contract.riscv dex/artifacts && \
 		cp dex/factory/target/ink/factory_contract.riscv dex/artifacts
+
+dex/artifacts/psp22.wasm:
+	@$(MAKE) build-dex-wasm
+dex/artifacts/psp22.riscv:
+	@$(MAKE) build-dex-riscv
+dex/artifacts/wrapped_azero.wasm:
+	@$(MAKE) build-dex-wasm
+dex/artifacts/wrapped_azero.riscv:
+	@$(MAKE) build-dex-riscv
+dex/artifacts/pair_contract.wasm:
+	@$(MAKE) build-dex-wasm
+dex/artifacts/pair_contract.riscv:
+	@$(MAKE) build-dex-riscv
+dex/artifacts/router_contract.wasm:
+	@$(MAKE) build-dex-wasm
+dex/artifacts/router_contract.riscv:
+	@$(MAKE) build-dex-riscv
+dex/artifacts/factory_contract.wasm:
+	@$(MAKE) build-dex-wasm
+dex/artifacts/factory_contract.riscv:
+	@$(MAKE) build-dex-riscv
+
+.PHONY: run-dex-simulation
+run-dex-simulation: dex/artifacts/psp22.wasm dex/artifacts/psp22.riscv dex/artifacts/wrapped_azero.wasm dex/artifacts/wrapped_azero.riscv dex/artifacts/pair_contract.wasm dex/artifacts/pair_contract.riscv dex/artifacts/router_contract.wasm dex/artifacts/router_contract.riscv dex/artifacts/factory_contract.wasm dex/artifacts/factory_contract.riscv ## Run the dex contracts simulation
+	@cd simulation && cargo run --release --bin dex-simulation
