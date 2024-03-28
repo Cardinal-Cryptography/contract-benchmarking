@@ -1,0 +1,32 @@
+[package]
+name = "wrapped-azero"
+version = "0.1.0"
+edition = "2021"
+authors = ["Cardinal"]
+homepage = "https://github.com/Cardinal-Cryptography/wAZERO"
+repository = "https://github.com/Cardinal-Cryptography/wAZERO"
+license-file = "LICENSE.md"
+readme = "README.md"
+description = "Smart contract for AZERO coin wrapped as a PSP22 token"
+exclude = [ ".github/*" ]
+
+[dependencies]
+ink = { path = "../../ink/crates/ink", default-features = false }
+
+scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
+scale-info = { version = "2.9", default-features = false, features = ["derive"], optional = true }
+
+psp22 = { path = "../PSP22/", default-features = false }
+
+[lib]
+path = "lib.rs"
+
+[features]
+default = ["std"]
+std = [
+    "ink/std",
+    "scale/std",
+    "scale-info/std",
+    "psp22/std",
+]
+ink-as-dependency = []
