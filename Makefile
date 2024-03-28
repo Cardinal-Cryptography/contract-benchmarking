@@ -30,9 +30,14 @@ build-flipper-riscv: ## Build the flipper contract (riscv target)
 	@$(RUN_WITH_CONTEXT) build --release --target riscv --manifest-path flipper/Cargo.toml
 	@mkdir -p flipper/artifacts && cp flipper/target/ink/flipper.riscv flipper/artifacts
 
+flipper/artifacts/flipper.wasm:
+	$(MAKE) build-flipper-wasm
+flipper/artifacts/flipper.riscv:
+	$(MAKE) build-flipper-riscv
+
 .PHONY: run-flipper-simulation
-run-flipper-simulation: build-flipper-wasm build-flipper-riscv ## Run the flipper contract simulation
-	@cd flipper-simulation && cargo run --release
+run-flipper-simulation: flipper/artifacts/flipper.wasm flipper/artifacts/flipper.riscv ## Run the flipper contract simulation
+	@cd simulation && cargo run --release --bin flipper-simulation
 
 .PHONY: help
 help: ## Displays this help
