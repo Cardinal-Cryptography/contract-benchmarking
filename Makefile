@@ -3,20 +3,24 @@ docker run --rm \
 	-v $(PWD)/ink:/workspace/ink \
 	-v $(PWD)/polkadot-sdk:/workspace/polkadot-sdk \
 	-v $(PWD)/flipper:/workspace/flipper \
-	contract-builder
+	riscv-contract-builder
 endef
 
 .PHONY: build-image
 build-image: ## Build the image
-	@docker build --tag contract-builder -f Dockerfile .
+	@docker build --tag riscv-contract-builder -f Dockerfile .
+
+push-image: ## Push the image
+	@docker tag riscv-contract-builder:latest public.ecr.aws/p6e8q1z1/riscv-contract-builder:latest
+	@docker push public.ecr.aws/p6e8q1z1/riscv-contract-builder:latest
 
 .PHONY: build-flipper-wasm
-build-flipper-wasm: build-image ## Build the flipper contract (wasm target)
+build-flipper-wasm: ## Build the flipper contract (wasm target)
 	@$(RUN_WITH_CONTEXT) build --release --target wasm --manifest-path flipper/Cargo.toml
 	@mkdir -p flipper/artifacts && cp flipper/target/ink/flipper.wasm flipper/artifacts
 
 .PHONY: build-flipper-riscv
-build-flipper-riscv: build-image ## Build the flipper contract (riscv target)
+build-flipper-riscv: ## Build the flipper contract (riscv target)
 	@$(RUN_WITH_CONTEXT) build --release --target riscv --manifest-path flipper/Cargo.toml
 	@mkdir -p flipper/artifacts && cp flipper/target/ink/flipper.riscv flipper/artifacts
 
