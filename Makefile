@@ -10,9 +10,15 @@ endef
 build-image: ## Build the image
 	@docker build --tag riscv-contract-builder -f Dockerfile .
 
+.PHONY: push-image
 push-image: ## Push the image
 	@docker tag riscv-contract-builder:latest public.ecr.aws/p6e8q1z1/riscv-contract-builder:latest
 	@docker push public.ecr.aws/p6e8q1z1/riscv-contract-builder:latest
+
+.PHONY: pull-image
+pull-image: ## Pull the image
+	@docker pull public.ecr.aws/p6e8q1z1/riscv-contract-builder:latest
+	@docker tag public.ecr.aws/p6e8q1z1/riscv-contract-builder:latest riscv-contract-builder:latest
 
 .PHONY: build-flipper-wasm
 build-flipper-wasm: ## Build the flipper contract (wasm target)
